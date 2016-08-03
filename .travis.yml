@@ -2,7 +2,7 @@ language: php
 
 install:
    - composer self-update
-   - composer install
+   - composer update --prefer-dist --no-interaction
 
 php:
   - 7.0
@@ -10,7 +10,7 @@ php:
 
 before_script:
   - composer install --dev
-  - composer require symfony/framework-bundle:dev-master
+  - composer require symfony/symfony:3.1.*
 
 script:
   - phpunit --configuration travis.phpunit.xml
