@@ -1,4 +1,4 @@
-{% extends '::base.html.twig' %}
+{% extends debug_template|default('::base.html.twig') %}
 
 {% block body %}
     {{ dump(data|default(null)) }}
