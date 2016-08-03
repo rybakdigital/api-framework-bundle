@@ -7,7 +7,9 @@
             <directory suffix="Test.php">./Tests</directory>
         </testsuite>
     </testsuites>
-
+    <php>
+        <server name="KERNEL_DIR" value="./Tests/Fixtures/App" />
+    </php>
     <filter>
         <whitelist>
             <directory>./</directory>
@@ -15,8 +17,6 @@
                 <directory>./Resources</directory>
                 <directory>./Tests</directory>
                 <directory>./vendor</directory>
-                <directory>./Propel/map</directory>
-                <directory>./Propel/om</directory>
             </exclude>
         </whitelist>
     </filter>
