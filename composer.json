@@ -1,0 +1,21 @@
+{
+    "name": "rybakdigital/api-framework-bundle",
+    "type": "symfony-bundle",
+    "license": "proprietary",
+    "description": "Rybak Digital API",
+    "keywords": ["api"],
+    "homepage": "https://github.com/rybakdigital/api-frameworkbundle",
+    "authors": [
+        {
+            "name": "Kris Rybak",
+            "email": "kris.rybak@rybakdigital.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.5.9"
+    },
+    "autoload": {
+        "psr-4": { "RybakDigital\\Api\\FrameworkBundle\\": "" }
+    }
+}
