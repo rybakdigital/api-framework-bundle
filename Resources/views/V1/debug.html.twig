@@ -1,5 +1,7 @@
 {% extends debug_template|default('::base.html.twig') %}
 
 {% block body %}
-    {{ dump(data|default(null)) }}
+    {% if data is defined %}
+        {{ dump(data) }}
+    {% endif %}
 {% endblock %}
