@@ -117,6 +117,12 @@ class RequestFormatterTest extends WebTestCase
                 ),
                 Response::HTTP_CREATED,
             ),
+            array(
+                array(
+                    'data'    => $data = array(),
+                ),
+                Response::HTTP_CREATED,
+            ),
         );
     }
 
