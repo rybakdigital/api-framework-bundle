@@ -5,7 +5,6 @@ namespace RybakDigital\Api\FrameworkBundle\Service;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * RybakDigital\Api\FrameworkBundle\Service\RequestFormatter
