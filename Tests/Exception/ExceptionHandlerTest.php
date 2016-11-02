@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use RybakDigital\Api\FrameworkBundle\Exception\ExceptionHandler;
 use Symfony\Component\Debug\Exception\FlattenException;
 use RybakDigital\Api\FrameworkBundle\Exception\ErrorCode;
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class RequestFormatterTest extends WebTestCase
 {
@@ -41,8 +41,8 @@ class RequestFormatterTest extends WebTestCase
         // Test Flatent Exception
         $message = 'Route not found';
         $code = 404;
-        $exception = new HttpException($code, $message);
-        $flattenException = new FlattenException($exception);
+        $exception          = new NotFoundHttpException($message);
+        $flattenException   = FlattenException::create($exception);
 
         $expectedFlatten = new \StdClass;
         $expectedFlatten->message      = ErrorCode::$errorMessage[ErrorCode::ERROR_CLIENT_HTTP_NOT_FOUND];
