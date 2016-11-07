@@ -3,7 +3,6 @@ machine:
         version: 7.0.7
 dependencies:
     pre:
-        - composer self-update
         - composer update --prefer-dist --no-interaction
         - composer install --dev
         - composer require symfony/symfony:3.1.*

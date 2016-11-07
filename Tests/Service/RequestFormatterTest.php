@@ -1,6 +1,6 @@
 <?php
 
-namespace RybakDigital\Api\FrameworkBundle\Tests\Controller;
+namespace RybakDigital\Api\FrameworkBundle\Tests\Service;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\RequestStack;
