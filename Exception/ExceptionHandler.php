@@ -1,12 +1,12 @@
 <?php
 
-namespace RybakDigital\Api\FrameworkBundle\Exception;
+namespace RybakDigital\Bundle\ApiFrameworkBundle\Exception;
 
 use RybakDigital\Api\FrameworkBundle\Exception\ErrorCode;
 use Symfony\Component\Debug\Exception\FlattenException;
 
 /**
- * RybakDigital\Api\FrameworkBundle\Exception\ExceptionHandler
+ * RybakDigital\Bundle\ApiFrameworkBundle\Exception\ExceptionHandler
  *
  * @author Kris Rybak <kris.rybak@krisrybak.com>
  */

@@ -1,13 +1,13 @@
 <?php
 
-namespace RybakDigital\Api\FrameworkBundle\Service;
+namespace RybakDigital\Bundle\ApiFrameworkBundle\Service;
 
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
- * RybakDigital\Api\FrameworkBundle\Service\RequestFormatter
+ * RybakDigital\Bundle\ApiFrameworkBundle\Service\RequestFormatter
  *
  * @author Kris Rybak <kris.rybak@rybakdigital.com>
  */

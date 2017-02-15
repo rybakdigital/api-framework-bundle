@@ -1,17 +1,17 @@
 <?php
 
-namespace RybakDigital\Api\FrameworkBundle\Controller;
+namespace RybakDigital\Bundle\ApiFrameworkBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use RybakDigital\Api\FrameworkBundle\Service\RequestFormatter;
-use RybakDigital\Api\FrameworkBundle\Exception\ExceptionHandler;
+use RybakDigital\Bundle\ApiFrameworkBundle\Service\RequestFormatter;
+use RybakDigital\Bundle\ApiFrameworkBundle\Exception\ExceptionHandler;
 
 /**
- * RybakDigital\Api\FrameworkBundle\Controller\ExceptionController
+ * RybakDigital\Bundle\ApiFrameworkBundle\Controller\ExceptionController
  *
  * @author Kris Rybak <kris.rybak@krisrybak.com>
  */
