@@ -2,7 +2,7 @@
 
 namespace RybakDigital\Bundle\ApiFrameworkBundle\Exception;
 
-use RybakDigital\Api\FrameworkBundle\Exception\ErrorCode;
+use RybakDigital\Bundle\ApiFrameworkBundle\Exception\ErrorCode;
 use Symfony\Component\Debug\Exception\FlattenException;
 
 /**
