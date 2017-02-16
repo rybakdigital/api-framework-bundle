@@ -24,7 +24,7 @@ class ExceptionController extends Controller
     {
         $data = ExceptionHandler::handle($exception);
 
-        $requestFormatter = $this->container->get('rybakdigital.api.framework.request_formatter');
+        $requestFormatter = $this->container->get('rybakdigital.apiframework.request_formatter');
 
         // Add additional debug information for dev mode
         if ($this->get('kernel')->getEnvironment() == 'dev') {
