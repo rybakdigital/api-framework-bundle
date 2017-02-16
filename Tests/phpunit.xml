@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit bootstrap="./bootstrap.php" colors="true">
+<phpunit bootstrap="../../../../../app/autoload.php" colors="true">
 
     <testsuites>
         <testsuite name="RybakDigitalAuthenticationBundle test suite">
@@ -12,6 +12,9 @@
                yui="true" highlight="false"
                lowUpperBound="35" highLowerBound="70"/>
     </logging>
+    <php>
+        <server name="KERNEL_DIR" value="./Tests/Fixtures/App" />
+    </php>
     <filter>
         <whitelist>
             <directory>./</directory>
