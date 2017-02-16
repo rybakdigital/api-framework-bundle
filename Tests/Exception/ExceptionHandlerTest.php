@@ -3,10 +3,10 @@
 namespace RybakDigital\Bundle\ApiFrameworkBundle\Tests\Exception;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use RybakDigital\Bundle\ApiFrameworkBundle\Exception\ExceptionHandler;
 use Symfony\Component\Debug\Exception\FlattenException;
-use RybakDigital\Bundle\ApiFrameworkBundle\Exception\ErrorCode;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use RybakDigital\Bundle\ApiFrameworkBundle\Exception\ErrorCode;
+use RybakDigital\Bundle\ApiFrameworkBundle\Exception\ExceptionHandler;
 
 class RequestFormatterTest extends WebTestCase
 {
