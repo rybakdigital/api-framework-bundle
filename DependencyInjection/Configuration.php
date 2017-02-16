@@ -1,6 +1,6 @@
 <?php
 
-namespace RybakDigital\Api\FrameworkBundle\DependencyInjection;
+namespace RybakDigital\Bundle\ApiFrameworkBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

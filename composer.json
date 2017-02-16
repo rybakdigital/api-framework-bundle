@@ -4,7 +4,7 @@
     "license": "proprietary",
     "description": "Rybak Digital API",
     "keywords": ["api"],
-    "homepage": "https://github.com/rybakdigital/api-frameworkbundle",
+    "homepage": "https://github.com/rybakdigital/api-framework-bundle",
     "authors": [
         {
             "name": "Kris Rybak",
@@ -16,6 +16,6 @@
         "php": ">=5.5.9"
     },
     "autoload": {
-        "psr-4": { "RybakDigital\\Api\\FrameworkBundle\\": "" }
+        "psr-4": { "RybakDigital\\Bundle\\ApiFrameworkBundle\\": "" }
     }
 }

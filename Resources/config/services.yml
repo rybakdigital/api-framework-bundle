@@ -1,4 +1,4 @@
 services:
     rybakdigital.apiframework.request_formatter:
-        class: RybakDigital\ApiFrameworkBundle\Service\RequestFormatter
+        class: RybakDigital\Bundle\ApiFrameworkBundle\Service\RequestFormatter
         arguments: ['@request_stack', '@templating']

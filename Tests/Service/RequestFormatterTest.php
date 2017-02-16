@@ -1,13 +1,13 @@
 <?php
 
-namespace RybakDigital\Api\FrameworkBundle\Tests\Service;
+namespace RybakDigital\Bundle\ApiFrameworkBundle\Tests\Service;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use RybakDigital\Api\FrameworkBundle\Service\RequestFormatter;
+use RybakDigital\Bundle\ApiFrameworkBundle\Service\RequestFormatter;
 
 class RequestFormatterTest extends WebTestCase
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace RybakDigital\Api\FrameworkBundle\Exception;
+namespace RybakDigital\Bundle\ApiFrameworkBundle\Exception;
 
 /**
- * RybakDigital\Api\FrameworkBundle\Exception\ErrorCode
+ * RybakDigital\Bundle\ApiFrameworkBundle\Exception\ErrorCode
  *
  * @author Kris Rybak <kris.rybak@krisrybak.com>
  */

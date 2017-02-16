@@ -1,6 +1,6 @@
 <?php
 
-namespace RybakDigital\Api\FrameworkBundle;
+namespace RybakDigital\Bundle\ApiFrameworkBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
