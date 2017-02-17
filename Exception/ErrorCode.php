@@ -13,6 +13,7 @@ class ErrorCode
     const ERROR_CLIENT_UNDEFINED = 40000;
 
     # Client HTTP errors 41xxx;
+    const ERROR_CLIENT_HTTP_BAD_REQUEST = 41400;
     const ERROR_CLIENT_HTTP_NOT_FOUND = 41404;
     const ERROR_CLIENT_HTTP_METHOD_NOT_ALLOWED = 41405;
 
@@ -24,6 +25,7 @@ class ErrorCode
 
     public static $errorMessage = array(
         40000 => 'Unexpected client error',
+        41400 => 'Bad request',
         41404 => 'Resource not found',
         41405 => 'Method Not Allowed',
         50000 => 'Unexpected system error',
