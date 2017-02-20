@@ -5,6 +5,7 @@ namespace RybakDigital\Bundle\ApiFrameworkBundle\Tests\Exception;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use RybakDigital\Bundle\ApiFrameworkBundle\Exception\ErrorCode;
 use RybakDigital\Bundle\ApiFrameworkBundle\Exception\ExceptionHandler;
 
@@ -54,6 +55,22 @@ class RequestFormatterTest extends WebTestCase
             $expectedFlatten,
         );
 
+        // Test MethodNotAllowedHttpException Exception
+        $message = 'Method Not Allowed';
+        $code = 405;
+        $exception              = new MethodNotAllowedHttpException(array('GET'), $message);
+        $flattenExceptionTwo    = FlattenException::create($exception);
+
+        $expectedFlattenTwo = new \StdClass;
+        $expectedFlattenTwo->message      = ErrorCode::$errorMessage[ErrorCode::ERROR_CLIENT_HTTP_METHOD_NOT_ALLOWED];
+        $expectedFlattenTwo->code         = 405;
+        $expectedFlattenTwo->errorCode    = ErrorCode::ERROR_CLIENT_HTTP_METHOD_NOT_ALLOWED;
+
+        $data[] = array(
+            $flattenExceptionTwo,
+            $expectedFlattenTwo,
+        );
+
         return $data;
     }
 
@@ -63,5 +80,47 @@ class RequestFormatterTest extends WebTestCase
     public function testHandleOrdinaryException($exception, $expected)
     {
         $this->assertEquals($expected, ExceptionHandler::handle($exception));
+    }
+
+    public function getInfoDataProvider()
+    {
+        $data = array();
+
+        $exception = new \Exception('Message', 404);
+
+        $data[] = array($exception, 'Exception', 'Message');
+
+        // Test Flatent Exception
+        $message = 'Route not found';
+        $code = 404;
+        $exception          = new NotFoundHttpException($message);
+        $flattenException   = FlattenException::create($exception);
+
+        $expectedFlatten = new \StdClass;
+        $expectedFlatten->message      = ErrorCode::$errorMessage[ErrorCode::ERROR_CLIENT_HTTP_NOT_FOUND];
+        $expectedFlatten->code         = 404;
+        $expectedFlatten->errorCode    = ErrorCode::ERROR_CLIENT_HTTP_NOT_FOUND;
+
+        $data[] = array(
+            $flattenException,
+            get_class($exception),
+            $message
+        );
+
+        $exception = new \ErrorException;
+        $data[] = array($exception, get_class($exception), 'Unsupported type \'ErrorException\' had been passed to ExceptionHandler');
+
+        return $data;
+    }
+
+    /**
+     * @dataProvider getInfoDataProvider
+     */
+    public function testGetInfo($exception, $expectedClass, $message = null)
+    {
+        $info = ExceptionHandler::getInfo($exception);
+        $this->assertTrue(is_object($info));
+        $this->assertSame($info->class, $expectedClass);
+        $this->assertSame($info->message, $message);
     }
 }

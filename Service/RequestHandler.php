@@ -17,7 +17,6 @@ class RequestHandler
     const   FORMAT_BODY_FORM_DATA       = 'multipart/form-data',
             FORMAT_BODY_URLENCODED      = 'application/x-www-form-urlencoded',
             FORMAT_BODY_RAW_JSON        = 'application/json',
-            FORMAT_BODY_RAW_TEXT_PLAIN  = 'text/plain;charset=UTF-8',
             FORMAT_BODY_RAW_TEXT        = 'text/plain';
 
     /**
@@ -29,7 +28,6 @@ class RequestHandler
         self::FORMAT_BODY_FORM_DATA,
         self::FORMAT_BODY_URLENCODED,
         self::FORMAT_BODY_RAW_JSON,
-        self::FORMAT_BODY_RAW_TEXT_PLAIN,
         self::FORMAT_BODY_RAW_TEXT,
     );
 
@@ -42,8 +40,7 @@ class RequestHandler
         'multipart/form-data'               => self::FORMAT_BODY_FORM_DATA,
         'application/x-www-form-urlencoded' => self::FORMAT_BODY_URLENCODED,
         'application/json'                  => self::FORMAT_BODY_RAW_JSON,
-        'text/plain'                        => self::FORMAT_BODY_RAW_TEXT_PLAIN,
-        'text/plain;charset=UTF-8'          => self::FORMAT_BODY_RAW_TEXT,
+        'text/plain'                        => self::FORMAT_BODY_RAW_TEXT,
     );
 
     /**
@@ -61,6 +58,7 @@ class RequestHandler
     /**
      * Gets POST data from the request and delivers the payload as StdClass object
      *
+     * @throws Exception    When fails to parse JSON
      * @return \StdClass | null
      */
     public function getPostData()
@@ -74,16 +72,12 @@ class RequestHandler
                 return (object) $request->request->all();
                 break;
             case self::FORMAT_BODY_RAW_JSON:
-            case self::FORMAT_BODY_RAW_TEXT_PLAIN:
             case self::FORMAT_BODY_RAW_TEXT:
                 try {
                     return Parser::parse($request->getContent());
                 } catch (Bdcc_Exception $e) {
                     throw new \Exception($e->getMessage(), ErrorCode::ERROR_CLIENT_HTTP_BAD_REQUEST);
                 }
-                break;     
-            default:
-                
                 break;
         }
 
