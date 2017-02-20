@@ -4,7 +4,7 @@
 
     <testsuites>
         <testsuite name="RybakDigitalAuthenticationBundle test suite">
-            <directory suffix="Test.php">./Tests</directory>
+            <directory suffix="Test.php">./../Tests</directory>
         </testsuite>
     </testsuites>
     <logging>
@@ -17,13 +17,13 @@
     </php>
     <filter>
         <whitelist>
-            <directory>./</directory>
+            <directory>./../</directory>
             <exclude>
-                <directory>./Resources</directory>
-                <directory>./Tests</directory>
-                <directory>./vendor</directory>
-                <directory>./Propel/map</directory>
-                <directory>./Propel/om</directory>
+                <directory>./../Resources</directory>
+                <directory>./../Tests</directory>
+                <directory>./../vendor</directory>
+                <directory>./../Propel/map</directory>
+                <directory>./../Propel/om</directory>
             </exclude>
         </whitelist>
     </filter>
