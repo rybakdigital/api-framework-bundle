@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use RybakDigital\Bundle\ApiFrameworkBundle\Exception\ApiException;
 use RybakDigital\Bundle\ApiFrameworkBundle\Exception\ErrorCode;
 use RybakDigital\Bundle\ApiFrameworkBundle\Exception\ExceptionHandler;
 
@@ -65,6 +67,38 @@ class RequestFormatterTest extends WebTestCase
         $expectedFlattenTwo->message      = ErrorCode::$errorMessage[ErrorCode::ERROR_CLIENT_HTTP_METHOD_NOT_ALLOWED];
         $expectedFlattenTwo->code         = 405;
         $expectedFlattenTwo->errorCode    = ErrorCode::ERROR_CLIENT_HTTP_METHOD_NOT_ALLOWED;
+
+        $data[] = array(
+            $flattenExceptionTwo,
+            $expectedFlattenTwo,
+        );
+
+        // Test BadRequestHttpException Exception
+        $message = 'Bad Request';
+        $code = 400;
+        $exception              = new BadRequestHttpException($message);
+        $flattenExceptionTwo    = FlattenException::create($exception);
+
+        $expectedFlattenTwo = new \StdClass;
+        $expectedFlattenTwo->message      = ErrorCode::$errorMessage[ErrorCode::ERROR_CLIENT_HTTP_BAD_REQUEST];
+        $expectedFlattenTwo->code         = 400;
+        $expectedFlattenTwo->errorCode    = ErrorCode::ERROR_CLIENT_HTTP_BAD_REQUEST;
+
+        $data[] = array(
+            $flattenExceptionTwo,
+            $expectedFlattenTwo,
+        );
+
+        // Test ApiException Exception
+        $message    = ErrorCode::$errorMessage[ErrorCode::ERROR_CLIENT_DATA_VALIDATOR_FAIL];
+        $code       = ErrorCode::ERROR_CLIENT_DATA_VALIDATOR_FAIL;
+        $exception  = new ApiException($message, $code);
+        $flattenExceptionTwo    = FlattenException::create($exception);
+
+        $expectedFlattenTwo = new \StdClass;
+        $expectedFlattenTwo->message      = ErrorCode::$errorMessage[ErrorCode::ERROR_CLIENT_DATA_VALIDATOR_FAIL];
+        $expectedFlattenTwo->code         = 400;
+        $expectedFlattenTwo->errorCode    = ErrorCode::ERROR_CLIENT_DATA_VALIDATOR_FAIL;
 
         $data[] = array(
             $flattenExceptionTwo,
