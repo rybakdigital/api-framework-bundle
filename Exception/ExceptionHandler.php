@@ -4,6 +4,7 @@ namespace RybakDigital\Bundle\ApiFrameworkBundle\Exception;
 
 use RybakDigital\Bundle\ApiFrameworkBundle\Exception\ErrorCode;
 use Symfony\Component\Debug\Exception\FlattenException;
+use RybakDigital\Bundle\ApiFrameworkBundle\Exception\ApiException;
 
 /**
  * RybakDigital\Bundle\ApiFrameworkBundle\Exception\ExceptionHandler
@@ -18,6 +19,7 @@ class ExceptionHandler
     public static $validExceptionClasses = array(
         'Symfony\Component\Debug\Exception\FlattenException',
         'Exception',
+        'RybakDigital\Bundle\ApiFrameworkBundle\Exception\ApiException',
     );
 
     /**
@@ -54,9 +56,9 @@ class ExceptionHandler
 
         if ($exception instanceof FlattenException) {
             // Set ststus code
-            $data->code = $exception->getStatusCode();
             $data->errorCode    = self::getErrorCode($exception);
             $data->message      = ErrorCode::$errorMessage[$data->errorCode];
+            $data->code         = $exception->getStatusCode();
         }
 
         return $data;
@@ -137,6 +139,17 @@ class ExceptionHandler
 
                 case 'Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException':
                     $errorCode    = ErrorCode::ERROR_CLIENT_HTTP_METHOD_NOT_ALLOWED;
+                    break;
+
+                case 'Symfony\Component\HttpKernel\Exception\BadRequestHttpException':
+                    $errorCode    = ErrorCode::ERROR_CLIENT_HTTP_BAD_REQUEST;
+                    break;
+                case 'RybakDigital\Bundle\ApiFrameworkBundle\Exception\ApiException':
+                    $errorCode    = ErrorCode::ERROR_CLIENT_HTTP_BAD_REQUEST;
+
+                    if (array_key_exists($exception->getCode(), ErrorCode::$errorMessage)) {
+                        $errorCode = $exception->getCode();
+                    }
                     break;
             }
         }
