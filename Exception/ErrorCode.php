@@ -14,6 +14,7 @@ class ErrorCode
     # Client errors 4xxxx;
     const ERROR_CLIENT_UNDEFINED = 40000;
     const ERROR_CLIENT_DATA_VALIDATOR_FAIL = 40001;
+    const ERROR_CLIENT_DUPLICATE_ENTRY = 40002;
 
     # Client HTTP errors 41xxx;
     const ERROR_CLIENT_HTTP_BAD_REQUEST = 41400;
@@ -29,6 +30,7 @@ class ErrorCode
     public static $errorMessage = array(
         40000 => 'Unexpected client error',
         40001 => 'Bad request. Data validation failed',
+        40002 => 'Bad request. Duplicate entry',
         41400 => 'Bad request',
         41404 => 'Resource not found',
         41405 => 'Method Not Allowed',
@@ -39,6 +41,7 @@ class ErrorCode
     public static $errorCodeToHttpStatusMap = array(
         self::ERROR_CLIENT_UNDEFINED                => Response::HTTP_BAD_REQUEST,
         self::ERROR_CLIENT_DATA_VALIDATOR_FAIL      => Response::HTTP_BAD_REQUEST,
+        self::ERROR_CLIENT_DUPLICATE_ENTRY          => Response::HTTP_BAD_REQUEST,
         self::ERROR_CLIENT_HTTP_BAD_REQUEST         => Response::HTTP_BAD_REQUEST,
         self::ERROR_CLIENT_HTTP_NOT_FOUND           => Response::HTTP_NOT_FOUND,
         self::ERROR_CLIENT_HTTP_METHOD_NOT_ALLOWED  => Response::HTTP_METHOD_NOT_ALLOWED,
