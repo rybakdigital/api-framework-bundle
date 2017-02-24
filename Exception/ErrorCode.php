@@ -23,6 +23,7 @@ class ErrorCode
 
     # Server errors 5xxxx;
     const ERROR_SERVER_UNDEFINED = 50000;
+    const ERROR_SERVER_GENERIC_DB_ERROR  = 50001;
 
     # Server Process errors 51xxx;
     const ERROR_SERVER_UNSUPPORTED_EXCEPTION = 51001;
@@ -35,6 +36,7 @@ class ErrorCode
         41404 => 'Resource not found',
         41405 => 'Method Not Allowed',
         50000 => 'Unexpected system error',
+        50001 => 'Unexpected system error. Database error',
         51001 => 'Unexpected system error: Unsupported Exception Type',
     );
 
