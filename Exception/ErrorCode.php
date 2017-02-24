@@ -47,5 +47,6 @@ class ErrorCode
         self::ERROR_CLIENT_HTTP_BAD_REQUEST         => Response::HTTP_BAD_REQUEST,
         self::ERROR_CLIENT_HTTP_NOT_FOUND           => Response::HTTP_NOT_FOUND,
         self::ERROR_CLIENT_HTTP_METHOD_NOT_ALLOWED  => Response::HTTP_METHOD_NOT_ALLOWED,
+        self::ERROR_SERVER_GENERIC_DB_ERROR         => Response::HTTP_INTERNAL_SERVER_ERROR,
     );
 }
