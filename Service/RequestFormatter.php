@@ -43,11 +43,24 @@ class RequestFormatter
      */
     private $requestStack;
 
+    private $headers;
 
     public function __construct(RequestStack $requestStack, EngineInterface $templating = null)
     {
         $this->requestStack = $requestStack;
         $this->templating   = $templating;
+        $this->headers      = array();
+    }
+
+    public function setResponseHeader(array $headers)
+    {
+        foreach ($headers as $header) {
+            if (isset($header['header']) && isset($header['value'])) {
+                $this->headers[$header['header']] = $header['value'];
+            }
+        }
+
+        return $this;
     }
 
     public function render($data, $status = 200, $headers = array(), $template = null)
@@ -63,7 +76,7 @@ class RequestFormatter
                     $response = $this->templating->renderResponse($template, array('data' => $data));
 
                     // Set custom header to inform user of debug mode
-                    $headers = array_merge($headers, array('X-Response-Format' => self::FORMAT_DEBUG));
+                    $headers = array_merge($headers, $this->headers, array('X-Response-Format' => self::FORMAT_DEBUG));
                     $response->headers->add($headers);
 
                     // Set status
@@ -76,7 +89,7 @@ class RequestFormatter
                 break;
             
             default:
-                $headers = array_merge($headers, array('X-Response-Format' => self::FORMAT_JSON));
+                $headers = array_merge($headers, $this->headers, array('X-Response-Format' => self::FORMAT_JSON));
 
                 return new JsonResponse($data, $status, $headers);
                 break;
