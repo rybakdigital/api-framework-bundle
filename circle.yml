@@ -9,4 +9,4 @@ dependencies:
         - composer require symfony/monolog-bundle:^2.8
 test:
     override:
-        - phpunit --configuration circleci.phpunit.xml
+        - vendor/bin/phpunit --configuration circleci.phpunit.xml
