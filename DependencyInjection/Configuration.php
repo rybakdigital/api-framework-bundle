@@ -18,10 +18,26 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
+        $rootNode = $treeBuilder->root('rybak_digital_api_framework');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+            ->children()
+                ->arrayNode('request_formatter')
+                    ->children()
+                        ->arrayNode('response')
+                            ->children()
+                                ->arrayNode('headers')
+                                    ->prototype('array')
+                                        ->children()
+                                            ->scalarNode('header')->end()
+                                            ->scalarNode('value')->end()
+                                        ->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+            ->end();
 
         return $treeBuilder;
     }
