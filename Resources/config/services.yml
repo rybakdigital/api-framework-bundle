@@ -2,6 +2,8 @@ services:
     rybakdigital.apiframework.request_formatter:
         class: RybakDigital\Bundle\ApiFrameworkBundle\Service\RequestFormatter
         arguments: ['@request_stack', '@templating']
+        calls:
+            - [ 'setResponseHeader', ['%rybak_digital_api_framework.request_formatter.response.headers%']]
 
     rybakdigital.apiframework.request_handler:
         class: RybakDigital\Bundle\ApiFrameworkBundle\Service\RequestHandler

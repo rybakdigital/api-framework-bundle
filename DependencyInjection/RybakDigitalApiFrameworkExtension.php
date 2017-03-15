@@ -19,7 +19,17 @@ class RybakDigitalApiFrameworkExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
+        // use the defined config to replace parameters in the twig extension
+        $configuration = new Configuration();
+        $config = $this->processConfiguration($configuration, $configs);
+
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        if (isset($config['request_formatter']['response']['headers'])) {
+            $container->setParameter('rybak_digital_api_framework.request_formatter.response.headers', $config['request_formatter']['response']['headers']);
+        } else {
+            $container->setParameter('rybak_digital_api_framework.request_formatter.response.headers', array());
+        }
     }
 }
