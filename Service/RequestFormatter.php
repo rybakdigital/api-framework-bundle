@@ -5,6 +5,7 @@ namespace RybakDigital\Bundle\ApiFrameworkBundle\Service;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use RybakDigital\Bundle\AuthenticationBundle\Authentication\Token\TokenExpiryCheckerInterface;
 
 /**
  * RybakDigital\Bundle\ApiFrameworkBundle\Service\RequestFormatter
@@ -45,6 +46,13 @@ class RequestFormatter
 
     private $headers;
 
+    /**
+     * Request stack
+     *
+     * @var RequestStack
+     */
+    private $tokenExpiryChecker;
+
     public function __construct(RequestStack $requestStack, EngineInterface $templating = null)
     {
         $this->requestStack = $requestStack;
@@ -59,6 +67,13 @@ class RequestFormatter
                 $this->headers[$header['header']] = $header['value'];
             }
         }
+
+        return $this;
+    }
+
+    public function setTokenExpiryChecker(TokenExpiryCheckerInterface $tokenExpiryChecker)
+    {
+        $this->tokenExpiryChecker = $tokenExpiryChecker;
 
         return $this;
     }
@@ -82,7 +97,7 @@ class RequestFormatter
                     // Set status
                     $response->setStatusCode($status);
 
-                    return $response;
+                    $response;
                 }
 
                 throw new \LogicException('You can not use the "render" method if the Templating Component or the Twig Bundle are not available.');
@@ -91,9 +106,13 @@ class RequestFormatter
             default:
                 $headers = array_merge($headers, $this->headers, array('X-Response-Format' => self::FORMAT_JSON));
 
-                return new JsonResponse($data, $status, $headers);
+                $response = new JsonResponse($data, $status, $headers);
                 break;
         }
+
+        $this->addAuthExpiresInHeader($response);
+
+        return $response;
     }
 
     /**
@@ -143,5 +162,18 @@ class RequestFormatter
 
         // Set requested format to Controller
         return $requestedFormat;
+    }
+
+    private function addAuthExpiresInHeader($response)
+    {
+        $expiresIn = false;
+
+        if ($this->tokenExpiryChecker) {
+            $expiresIn = $this->tokenExpiryChecker->getRequestedTokenExpiryTime();
+        }
+
+        if ($expiresIn) {
+            $response->headers->set('X-Auth-Token-Expires-In', $expiresIn);
+        }
     }
 }

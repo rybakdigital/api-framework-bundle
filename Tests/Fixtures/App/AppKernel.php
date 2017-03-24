@@ -13,6 +13,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new RybakDigital\Bundle\ApiFrameworkBundle\RybakDigitalApiFrameworkBundle(),
+            new RybakDigital\Bundle\AuthenticationBundle\RybakDigitalAuthenticationBundle(),
         );
     }
 

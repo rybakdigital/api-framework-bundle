@@ -12,3 +12,5 @@ framework:
 twig:
     globals:
         debug_template: 'RybakDigitalApiFrameworkBundle::base.html.twig'
+imports:
+    - { resource: "@RybakDigitalAuthenticationBundle/Resources/config/services.yml" }
