@@ -98,9 +98,10 @@ class RequestFormatter
                     $response->setStatusCode($status);
 
                     $response;
+                } else {
+                    throw new \LogicException('You can not use the "render" method if the Templating Component or the Twig Bundle are not available.');
                 }
 
-                throw new \LogicException('You can not use the "render" method if the Templating Component or the Twig Bundle are not available.');
                 break;
             
             default:
