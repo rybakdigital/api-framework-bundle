@@ -129,31 +129,31 @@ class RequestFormatterTest extends WebTestCase
     /**
      * @dataProvider requestDebugDataProvider
      */
-    // public function testRenderDebug($requestData, $expectedStatus, $expectedHeaders = array(), $expectedTemplate = null)
-    // {
-    //     // Pre-configure class
-    //     $request        = new Request;
-    //     $request->query->set('format', 'debug');
+    public function testRenderDebug($requestData, $expectedStatus, $expectedHeaders = array(), $expectedTemplate = null)
+    {
+        // Pre-configure class
+        $request        = new Request;
+        $request->query->set('format', 'debug');
 
-    //     $requestStack   = new RequestStack;
-    //     $requestStack->push($request);
+        $requestStack   = new RequestStack;
+        $requestStack->push($request);
 
-    //     $templating     = $this->container->get('templating');
-    //     $requestFormatter = new RequestFormatter($requestStack, $templating);
+        $templating     = $this->container->get('templating');
+        $requestFormatter = new RequestFormatter($requestStack, $templating);
 
-    //     $response = $requestFormatter->render($requestData, $expectedStatus, $expectedHeaders, $expectedTemplate);
+        $response = $requestFormatter->render($requestData, $expectedStatus, $expectedHeaders, $expectedTemplate);
 
-    //     $this->assertTrue($response->headers->has('X-Response-Format'));
-    //     $this->assertEquals(RequestFormatter::FORMAT_DEBUG, $response->headers->get('X-Response-Format'));
+        $this->assertTrue($response->headers->has('X-Response-Format'));
+        $this->assertEquals(RequestFormatter::FORMAT_DEBUG, $response->headers->get('X-Response-Format'));
 
-    //     // Check Response code
-    //     $this->assertEquals($expectedStatus, $response->getStatusCode());
+        // Check Response code
+        $this->assertEquals($expectedStatus, $response->getStatusCode());
 
-    //     // Check headers
-    //     foreach ($expectedHeaders as $key => $value) {
-    //         $this->assertEquals($expectedHeaders[$key], $response->headers->get($key));
-    //     }
-    // }
+        // Check headers
+        foreach ($expectedHeaders as $key => $value) {
+            $this->assertEquals($expectedHeaders[$key], $response->headers->get($key));
+        }
+    }
 
     /**
      * @expectedException   LogicException
