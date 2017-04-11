@@ -65,23 +65,35 @@ class RequestHandler
     {
         $format     = $this->getRequestedFormat();
         $request    = $this->requestStack->getMasterRequest();
+        $data       = null;
+        $requestData = $request->request->all();
+        $exception  = null;
+
+        if (!empty(true)) {
+            try {
+                $contentData = (array) Parser::parse($request->getContent());
+            } catch (Bdcc_Exception $e) {
+
+                $exception = new \Exception($e->getMessage(), ErrorCode::ERROR_CLIENT_HTTP_BAD_REQUEST);
+            }
+        }
 
         switch ($format) {
             case self::FORMAT_BODY_FORM_DATA:
             case self::FORMAT_BODY_URLENCODED:
-                return (object) $request->request->all();
+                $data = array_merge($contentData, $requestData);
                 break;
             case self::FORMAT_BODY_RAW_JSON:
             case self::FORMAT_BODY_RAW_TEXT:
-                try {
-                    return Parser::parse($request->getContent());
-                } catch (Bdcc_Exception $e) {
-                    throw new \Exception($e->getMessage(), ErrorCode::ERROR_CLIENT_HTTP_BAD_REQUEST);
+                if ($exception) {
+                    throw $exception;
                 }
+
+                $data = array_merge($requestData, $contentData);
                 break;
         }
 
-        return null;
+        return (object) $data;
     }
 
     /**
