@@ -69,13 +69,14 @@ class RequestHandler
         $requestData = $request->request->all();
         $exception  = null;
 
-        if (!empty(true)) {
+        if (!empty($request->getContent())) {
             try {
                 $contentData = (array) Parser::parse($request->getContent());
             } catch (Bdcc_Exception $e) {
-
                 $exception = new \Exception($e->getMessage(), ErrorCode::ERROR_CLIENT_HTTP_BAD_REQUEST);
             }
+        } else {
+            $contentData = $requestData;
         }
 
         switch ($format) {
