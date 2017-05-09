@@ -66,7 +66,6 @@ class RequestHandler
         $format     = $this->getRequestedFormat();
         $request    = $this->requestStack->getMasterRequest();
         $data       = null;
-        $requestData = $request->request->all();
         $exception  = null;
 
         if (!empty($request->getContent())) {
@@ -76,13 +75,13 @@ class RequestHandler
                 $exception = new \Exception($e->getMessage(), ErrorCode::ERROR_CLIENT_HTTP_BAD_REQUEST);
             }
         } else {
-            $contentData = $requestData;
+            $contentData = $request->request->all();
         }
 
         switch ($format) {
             case self::FORMAT_BODY_FORM_DATA:
             case self::FORMAT_BODY_URLENCODED:
-                $data = array_merge($contentData, $requestData);
+                $data = array_merge($contentData, $request->request->all(), $request->files->all());
                 break;
             case self::FORMAT_BODY_RAW_JSON:
             case self::FORMAT_BODY_RAW_TEXT:
@@ -90,7 +89,7 @@ class RequestHandler
                     throw $exception;
                 }
 
-                $data = array_merge($requestData, $contentData);
+                $data = array_merge($contentData, $request->request->all(), $request->files->all());
                 break;
         }
 
