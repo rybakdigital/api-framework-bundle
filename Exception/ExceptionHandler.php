@@ -20,6 +20,7 @@ class ExceptionHandler
         'Symfony\Component\Debug\Exception\FlattenException',
         'Exception',
         'RybakDigital\Bundle\ApiFrameworkBundle\Exception\ApiException',
+        'Ucc\Exception\Data\InvalidDataValueException'
     );
 
     /**
@@ -144,6 +145,11 @@ class ExceptionHandler
                 case 'Symfony\Component\HttpKernel\Exception\BadRequestHttpException':
                     $errorCode    = ErrorCode::ERROR_CLIENT_HTTP_BAD_REQUEST;
                     break;
+
+                case 'Ucc\Exception\Data\InvalidDataValueException':
+                    $errorCode    = ErrorCode::ERROR_CLIENT_DATA_FILTER_UNAVAILABLE;
+                    break;
+
                 case 'RybakDigital\Bundle\ApiFrameworkBundle\Exception\ApiException':
                     $errorCode    = ErrorCode::ERROR_CLIENT_HTTP_BAD_REQUEST;
 
