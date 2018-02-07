@@ -6,6 +6,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use RybakDigital\Bundle\AuthenticationBundle\Authentication\Token\TokenExpiryCheckerInterface;
+use RybakDigital\Bundle\ApiFrameworkBundle\Service\DataSanitiser;
+use Ucc\Exception\Data\InvalidDataValueException;
 
 /**
  * RybakDigital\Bundle\ApiFrameworkBundle\Service\RequestFormatter
@@ -53,11 +55,12 @@ class RequestFormatter
      */
     private $tokenExpiryChecker;
 
-    public function __construct(RequestStack $requestStack, EngineInterface $templating = null)
+    public function __construct(RequestStack $requestStack, EngineInterface $templating = null, DataSanitiser $dataSanitiser)
     {
-        $this->requestStack = $requestStack;
-        $this->templating   = $templating;
-        $this->headers      = array();
+        $this->requestStack     = $requestStack;
+        $this->templating       = $templating;
+        $this->headers          = array();
+        $this->dataSanitiser    = $dataSanitiser;
     }
 
     public function setResponseHeader(array $headers)
@@ -80,6 +83,17 @@ class RequestFormatter
 
     public function render($data, $status = 200, $headers = array(), $template = null)
     {
+        try {
+            $data = $this->dataSanitiser->sanitise($data);
+        } catch (InvalidDataValueException $e) {
+            $data   = new \StdClass;
+            $data->message      = "display filter faild validation because " . $e->getMessage();
+            $data->code         = JsonResponse::HTTP_BAD_REQUEST;
+            $data->errorCode    = 40400;
+
+            $status = JsonResponse::HTTP_BAD_REQUEST;
+        }
+
         switch ($this->getRequestedFormat()) {
             case self::FORMAT_DEBUG:
                 if (!$template) {
