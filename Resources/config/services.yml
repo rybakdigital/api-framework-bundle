@@ -1,11 +1,15 @@
 services:
     rybakdigital.apiframework.request_formatter:
         class: RybakDigital\Bundle\ApiFrameworkBundle\Service\RequestFormatter
-        arguments: ['@request_stack', '@templating']
+        arguments: ['@request_stack', '@templating', '@rybakdigital.apiframework.data_sanitiser']
         calls:
             - [ 'setResponseHeader', ['%rybak_digital_api_framework.request_formatter.response.headers%']]
             - [ 'setTokenExpiryChecker', ['@rybakdigital.authentication.token.token_expiry_checker']]
 
     rybakdigital.apiframework.request_handler:
         class: RybakDigital\Bundle\ApiFrameworkBundle\Service\RequestHandler
+        arguments: ['@request_stack']
+
+    rybakdigital.apiframework.data_sanitiser:
+        class: RybakDigital\Bundle\ApiFrameworkBundle\Service\DataSanitiser
         arguments: ['@request_stack']
