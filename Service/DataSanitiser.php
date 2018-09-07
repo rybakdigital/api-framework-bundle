@@ -4,6 +4,7 @@ namespace RybakDigital\Bundle\ApiFrameworkBundle\Service;
 
 use Symfony\Component\HttpFoundation\RequestStack;
 use Ucc\Data\Types\Pseudo\DisplayType;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * RybakDigital\Bundle\ApiFrameworkBundle\Service\DataSanitiser
@@ -55,6 +56,11 @@ class DataSanitiser
     public function getRequestedDisplay()
     {
         $request = $this->requestStack->getMasterRequest();
+
+        // Skip sanitiser for OPTIONS
+        if ($request->getMethod() === Request::METHOD_OPTIONS) {
+            return false;
+        }
 
         $display = $request->query->get('display', false);
 
